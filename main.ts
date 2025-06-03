@@ -144,7 +144,7 @@ export class KanbanView extends ItemView {
 			new Notice(t('invalidFolderPath'));
 			return;
 		}
-		const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+		const timestamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, "");
 		const newFileName = `Prompt-${timestamp}.md`;
 		const newFilePath = `${this.folderPath}/${newFileName}`;
 		try {
