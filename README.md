@@ -64,8 +64,9 @@ A powerful Obsidian plugin designed specifically for AI prompt engineers and ent
 
 #### Getting Started
 1. **Create a Prompt Folder**: Organize your prompts in dedicated folders
-2. **Open Kanban View**: Click the kanban icon in the sidebar
-3. **Start Managing**: Create, iterate, and organize your prompts
+2. **Create Initial Prompt File**: Must create at least one prompt file to initialize plugin
+3. **Open Kanban View**: Click the kanban icon in the sidebar
+4. **Start Managing**: Create, iterate, and organize your prompts
 
 #### Creating Your First Prompt
 1. Click **"New File"** in the kanban view
