@@ -159,7 +159,7 @@ export class KanbanView extends ItemView {
 	}
 
 	private cleanCodeBlockMarkers(content: string): string {
-		return content.replace(/``` Markdown[\s\S]*?\n/g, '').replace(/\n```/g, '').trim();
+		return content.replace(/```\s*Markdown\s*\n/g, '').replace(/\n```/g, '').trim();
 	}
 
 	async renderKanbanList() {

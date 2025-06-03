@@ -9,9 +9,13 @@
 ### 🚀 AI Prompt Management Made Easy
 
 A powerful Obsidian plugin designed specifically for AI prompt engineers and enthusiasts. Manage, iterate, and organize your AI prompts with an intuitive kanban-style interface.
+
+
 ![newprompt](asset/newprompt.gif)
 
+
 ![lterate](asset/lterate.gif)
+
 
 ### ✨ Key Features
 
