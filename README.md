@@ -1,4 +1,4 @@
-# AI Prompt Manager - Obsidian Plugin / AI 提示词管理器 - Obsidian 插件
+# AI Prompt Manager - Obsidian Plugin
 
 [English](README.md) | [中文](README-zh.md)
 
@@ -47,7 +47,7 @@ A powerful Obsidian plugin designed specifically for AI prompt engineers and ent
 
 ### 🛠️ Installation
 
-#### From Obsidian Community Plugins
+#### From Obsidian Community Plugins (coming soon)
 
 1. Open Obsidian Settings
 2. Navigate to Community Plugins
