@@ -11,6 +11,10 @@
 专为 AI 提示工程师和爱好者设计的 Obsidian 插件，通过直观的看板式界面管理、迭代和组织您的 AI 提示词。
 
 
+
+![prompt manager](asset/promptmanager.gif)
+
+
 ![新建prompt](asset/newprompt.gif)
 
 
