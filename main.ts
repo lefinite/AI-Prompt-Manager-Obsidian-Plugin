@@ -148,7 +148,7 @@ export class KanbanView extends ItemView {
 		const newFileName = `Prompt-${timestamp}.md`;
 		const newFilePath = `${this.folderPath}/${newFileName}`;
 		try {
-			const newFile = await this.app.vault.create(newFilePath, "### V 1.0\n\n```\n\nPrompt here...\n\n```");
+			const newFile = await this.app.vault.create(newFilePath, "### V 1.0\n\n``` Markdown\n\nPrompt here...\n\n```");
 			this.app.workspace.getLeaf(true).openFile(newFile);
 			this.renderKanbanList();
 			new Notice(t('fileCreated', newFileName));
@@ -159,7 +159,7 @@ export class KanbanView extends ItemView {
 	}
 
 	private cleanCodeBlockMarkers(content: string): string {
-		return content.replace(/```[\s\S]*?\n/g, '').replace(/\n```/g, '').trim();
+		return content.replace(/``` Markdown[\s\S]*?\n/g, '').replace(/\n```/g, '').trim();
 	}
 
 	async renderKanbanList() {
@@ -260,7 +260,7 @@ export class KanbanView extends ItemView {
 				// 只有当版本内容不为空时才生成摘要
 				if (versionSpecificContent) {
 					const cleanedContent = this.cleanCodeBlockMarkers(versionSpecificContent);
-					contentSummary = cleanedContent.substring(0, 25) + (cleanedContent.length > 25 ? "..." : "");
+					contentSummary = cleanedContent.substring(0, 40) + (cleanedContent.length > 40 ? "..." : "");
 				} else {
 					// 版本标题存在但内容为空，显示空摘要
 					contentSummary = "";

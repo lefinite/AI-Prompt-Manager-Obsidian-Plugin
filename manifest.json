@@ -5,7 +5,7 @@
 	"minAppVersion": "0.15.0",
 	"description": "Professional AI prompt management with kanban-style interface. Organize, iterate, and optimize your AI prompts with version control, one-click copying, and visual preview.",
 	"author": "Ping",
-	"authorUrl": "",
+	"authorUrl": "https://github.com/lefinite/AI_Prompt_Manager_Obsidian_Plugin",
 	"fundingUrl": "",
-	"isDesktopOnly": false
+	"isDesktopOnly": true
 }

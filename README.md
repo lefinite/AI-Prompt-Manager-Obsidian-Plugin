@@ -9,6 +9,9 @@
 ### 🚀 AI Prompt Management Made Easy
 
 A powerful Obsidian plugin designed specifically for AI prompt engineers and enthusiasts. Manage, iterate, and organize your AI prompts with an intuitive kanban-style interface.
+[newprompt]（asset/newprompt.gif）
+
+[lterate]（asset/lterate.gif）
 
 ### ✨ Key Features
 
@@ -56,7 +59,7 @@ A powerful Obsidian plugin designed specifically for AI prompt engineers and ent
 
 #### Manual Installation
 
-1. Download the latest release from [GitHub Releases](https://github.com/your-username/obsidian-prompt-plugin/releases)
+1. Download the latest release from [GitHub Releases](https://github.com/lefinite/AI_Prompt_Manager_Obsidian_Plugin/releases)
 2. Extract files to: `VaultFolder/.obsidian/plugins/obsidian-prompt-plugin/`
 3. Reload Obsidian and enable in Settings > Community Plugins
 
