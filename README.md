@@ -1,6 +1,6 @@
 # AI Prompt Manager - Obsidian Plugin / AI 提示词管理器 - Obsidian 插件
 
-[English](#english) | [中文](#中文)
+[English](README.md) | [中文](README-zh.md)
 
 ---
 
