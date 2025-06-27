@@ -1,11 +1,11 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, ItemView, WorkspaceLeaf, Menu } from 'obsidian';
 
-interface MyPluginSettings {
+interface AIPromptManagerSettings {
 	activeKanbanFolders: string[];
 	showRibbonIcon: boolean;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: AIPromptManagerSettings = {
 	activeKanbanFolders: [],
 	showRibbonIcon: true
 }
@@ -13,13 +13,13 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
 const KANBAN_VIEW_TYPE = "kanban-view";
 
 export class KanbanView extends ItemView {
-	plugin: MyPlugin;
+	plugin: AIPromptManagerPlugin;
 	folderPath: string;
 	searchInputEl: HTMLInputElement | null = null;
 	isComposing: boolean = false;
 	fileWatcher: (() => void) | null = null; // 添加文件监听器引用
 
-	constructor(leaf: WorkspaceLeaf, plugin: MyPlugin, folderPath: string) {
+	constructor(leaf: WorkspaceLeaf, plugin: AIPromptManagerPlugin, folderPath: string) {
 		super(leaf);
 		this.plugin = plugin;
 		this.folderPath = folderPath;
@@ -116,7 +116,7 @@ export class KanbanView extends ItemView {
 
 	// 优化的文件监听器，只监听相关文件夹的变化
 	private setupOptimizedFileWatcher() {
-		const onFileChange = (file: any) => {
+		const onFileChange = (file: TFile | TFolder) => {
 			// 只有当文件在当前文件夹内时才刷新
 			if (file && file.path && this.isFileInCurrentFolder(file.path)) {
 				this.debounceRefresh();
@@ -297,12 +297,12 @@ export class KanbanView extends ItemView {
 			item.setTitle(t('delete'))
 				.setIcon("trash")
 				.onClick(() => {
-					new ConfirmModal(this.app, 
+					new DeleteConfirmModal(this.app, 
 						t('confirmDeleteFile', file.name),
 						t('deleteWarning'),
 						async () => {
 							try {
-								await this.app.vault.delete(file);
+								await this.app.fileManager.trashFile(file);
 								new Notice(t('fileDeleted', file.name));
 								this.renderKanbanList();
 							} catch (error) {
@@ -398,7 +398,7 @@ export class KanbanView extends ItemView {
 	}
 }
 
-export class ConfirmModal extends Modal {
+export class DeleteConfirmModal extends Modal {
 	titleText: string;
 	messageText: string;
 	onConfirm: () => Promise<void>;
@@ -433,9 +433,9 @@ export class ConfirmModal extends Modal {
 }
 
 class KanbanSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: AIPromptManagerPlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: AIPromptManagerPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
@@ -457,8 +457,8 @@ class KanbanSettingTab extends PluginSettingTab {
 	}
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class AIPromptManagerPlugin extends Plugin {
+	settings: AIPromptManagerSettings;
 	ribbonIconEl: HTMLElement | null = null;
 
 	async onload() {
@@ -508,7 +508,7 @@ export default class MyPlugin extends Plugin {
 					const existingLeaves = this.app.workspace.getLeavesOfType(viewType);
 					const activeLeaves = existingLeaves.filter(leaf => {
 						// 检查叶子节点是否真的存在且未被分离
-						return leaf.parent && !leaf.getContainer()?.containerEl.hasClass('mod-empty');
+						return leaf.view.containerEl && !leaf.view.containerEl.hasClass('mod-empty');
 					});
 					
 					if (activeLeaves.length > 0) {
@@ -560,10 +560,7 @@ export default class MyPlugin extends Plugin {
 			return;
 		}
 
-		// 只有在视图类型未注册时才注册
-		if (!this.app.viewRegistry.viewByType[viewType]) {
-			this.registerView(viewType, (leaf) => new KanbanView(leaf, this, folderPath));
-		}
+		this.registerView(viewType, (leaf) => new KanbanView(leaf, this, folderPath));
 
 		const leaf = this.app.workspace.getRightLeaf(false);
 		if (leaf) {
