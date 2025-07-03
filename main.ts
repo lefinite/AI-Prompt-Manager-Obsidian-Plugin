@@ -209,7 +209,7 @@ export class KanbanView extends ItemView {
 
 		// 点击事件
 		listItem.onclick = (event) => {
-			if ((event.target as HTMLElement).closest('button')) return;
+			if (event.target instanceof HTMLElement && event.target.closest('button')) return;
 			this.openFileAtVersion(file, lastH3LineNumber);
 		};
 
@@ -283,8 +283,9 @@ export class KanbanView extends ItemView {
 		const leaf = this.app.workspace.getLeaf(false);
 		await leaf.openFile(file);
 		if (leaf.view instanceof MarkdownView && lastH3LineNumber !== -1) {
+			const markdownView = leaf.view;
 			setTimeout(() => {
-				const editor = (leaf.view as MarkdownView).editor;
+				const editor = markdownView.editor;
 				editor.setCursor({ line: lastH3LineNumber, ch: 0 });
 				editor.scrollIntoView({from: {line: lastH3LineNumber, ch: 0}, to: {line: lastH3LineNumber, ch: 0}}, true);
 			}, 200);
@@ -688,7 +689,8 @@ const TRANSLATIONS: { [locale: string]: Translations } = {
 
 // 获取当前语言
 function getCurrentLocale(): string {
-	const locale = (window as any).moment?.locale() || 'en';
+	const moment = (window as any).moment;
+	const locale = moment?.locale() || 'en';
 	return locale.startsWith('zh') ? 'zh' : 'en';
 }
 
