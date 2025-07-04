@@ -173,7 +173,12 @@ export class KanbanView extends ItemView {
 			return;
 		}
 	
-		let files = folder.children.filter(file => file instanceof TFile && file.extension === "md") as TFile[];
+		let files: TFile[] = [];
+		folder.children.forEach(file => {
+			if (file instanceof TFile && file.extension === "md") {
+				files.push(file);
+			}
+		});
 		files.sort((a, b) => b.stat.mtime - a.stat.mtime);
 
 		const searchTerm = this.searchInputEl?.value.toLowerCase() || "";
@@ -689,7 +694,8 @@ const TRANSLATIONS: { [locale: string]: Translations } = {
 
 // 获取当前语言
 function getCurrentLocale(): string {
-	const moment = (window as any).moment;
+	// 避免使用 as any 转换
+	const moment = window.moment;
 	const locale = moment?.locale() || 'en';
 	return locale.startsWith('zh') ? 'zh' : 'en';
 }
