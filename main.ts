@@ -34,6 +34,10 @@ export class KanbanView extends ItemView {
 		return `Kanban: ${pathParts[pathParts.length - 1]}`;
 	}
 
+	getIcon() {
+		return "lucide-plane-takeoff";
+	}
+
 	// 在onOpen方法中修复硬编码文本
 	async onOpen() {
 		const container = this.containerEl.children[1];
@@ -504,7 +508,7 @@ export default class AIPromptManagerPlugin extends Plugin {
 		}
 
 		if (this.settings.showRibbonIcon) {
-			this.ribbonIconEl = this.addRibbonIcon('kanban', t('ribbonIconTooltip'), () => {
+			this.ribbonIconEl = this.addRibbonIcon('lucide-plane-takeoff', t('ribbonIconTooltip'), () => {
 				const activeFile = this.app.workspace.getActiveFile();
 				if (activeFile?.parent) {
 					const folderPath = activeFile.parent.path;
